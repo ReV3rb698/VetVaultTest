@@ -1,5 +1,13 @@
 const express = require('express');
 const { promiseUserPool } = require('./config/database');
+(async () => {
+  try {
+    const [rows] = await promiseUserPool.query('SELECT 1');
+    console.log('Database connection successful:', rows);
+  } catch (error) {
+    console.error('Database connection failed:', error);
+  }
+})();
 
 const indexRoute = require('./routes/indexRoute');
 const petRoute = require('./routes/petRoute');
