@@ -36,6 +36,11 @@ const options = {
 
 const sessionStore = new MySQLStore(options);
 
+// Add the following line to catch any errors during the initialization of the session store
+sessionStore.on('error', (error) => {
+  console.error('Session store error:', error);
+});
+
 // Socket.io setup
 const http = require('http');
 const socketIO = require('socket.io');
@@ -146,7 +151,7 @@ app.get("/test", (req, res) => {
 );
 
 server.listen(PORT, () => {
-  console.log(`"Server running. Visit: http://localhost:3000/auth/login in your browser 🚀"`);
+  console.log(`"Server running. Visit: http://localhost:8080/auth/login in your browser 🚀"`);
 });
 
 module.exports = { io }
