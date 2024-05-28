@@ -20,19 +20,35 @@ const authController = require("./controller/auth_controller");
 const fs = require('fs');
 const notificationRoute = require('./routes/notificationsRoute');
 const app = express(); 
+const cors=require("cors");
+app.use(cors());
 const flash = require('connect-flash');
 const MySQLStore = require('express-mysql-session')(session);
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json())
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-const options = {
-  pool: promiseUserPool,
+const options ={
+  connectionLimit: 10,
+  password: process.env.DB_PASSWORD,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  ssl: {
+    ca: fs.readFileSync(process.env.SSL_CERT)},
+  createDatabaseTable: true,
   tableName: 'SESSIONS',
-};
+}
+
+
 
 const sessionStore = new MySQLStore(options);
 
@@ -44,6 +60,7 @@ sessionStore.on('error', (error) => {
 // Socket.io setup
 const http = require('http');
 const socketIO = require('socket.io');
+const { create } = require('domain');
 const server = http.createServer(app);
 const io = socketIO(server);
 
@@ -108,17 +125,17 @@ io.on('connection', (socket) => {
 });
 
 app.use(
-    session({
-      secret: "secret",
-      resave: false,
-      saveUninitialized: false,
-      store: sessionStore,
-      cookie: {
-        httpOnly: true,
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      },
-    })
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
 );
 app.use(flash());  
 // Use EJS layouts for rendering views
