@@ -28,7 +28,7 @@ const io = socketIO(server);
 
 // Socket.io connection handling
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 
 // Socket.io connection handling
