@@ -1,6 +1,6 @@
 const express = require('express');
 const { promiseUserPool } = require('./config/database');
-const databaseRoute = require('./routes/databaseRoute');
+
 const indexRoute = require('./routes/indexRoute');
 const petRoute = require('./routes/petRoute');
 const path = require("path");
@@ -115,7 +115,7 @@ app.use(ejsLayouts);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(indexRoute);
-app.use(databaseRoute);
+
 app.use(petRoute);
 app.use(notificationRoute);
 
