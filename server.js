@@ -13,12 +13,20 @@ const fs = require('fs');
 const notificationRoute = require('./routes/notificationsRoute');
 const app = express(); 
 const flash = require('connect-flash');
+const MySQLStore = require('express-mysql-session')(session);
+
 require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+const options = {
+  pool: promiseUserPool,
+  tableName: 'SESSIONS',
+};
+
+const sessionStore = new MySQLStore(options);
 
 // Socket.io setup
 const http = require('http');
@@ -89,8 +97,9 @@ io.on('connection', (socket) => {
 app.use(
     session({
       secret: "secret",
-      resave: true,
-      saveUninitialized: true,
+      resave: false,
+      saveUninitialized: false,
+      store: sessionStore,
       cookie: {
         httpOnly: true,
         secure: false,
