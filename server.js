@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
-
+const sslCertPath = path.join(__dirname, process.env.SSL_CERT);
 const options ={
   connectionLimit: 10,
   password: process.env.DB_PASSWORD,
@@ -43,7 +43,7 @@ const options ={
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   ssl: {
-    ca: fs.readFileSync(process.env.SSL_CERT)},
+    ca: fs.readFileSync(sslCertPath)},
   createDatabaseTable: true,
   tableName: 'SESSIONS',
 }
