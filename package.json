@@ -29,11 +29,11 @@
     "start-server-and-test": "^2.0.3",
     "supertest": "^7.0.0"
   },
-    "scripts": {
-      "test": "mocha --exit",
-      "coverage": "c8 --check-coverage --lines 10 npm test",
-      "start": "node server.js",
-      "dev": "nodemon server.js",
-      "server-test": "start-server-and-test dev http://localhost:3000 coverage"
-    }
+  "scripts": {
+    "test": "mocha --exit",
+    "coverage": "c8 --check-coverage --lines 10 npm test",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "server-test": "start-server-and-test dev http://localhost:3000 coverage"
+  }
 }
