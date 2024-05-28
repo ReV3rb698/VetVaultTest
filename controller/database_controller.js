@@ -169,7 +169,8 @@ const databaseController = {
                 req.pets = rows;
                 next();
             } else {
-                res.status(404).send('No pets found for this user');
+                req.pets = [];
+                next();
             }
         } catch (error) {
             console.error(error);
