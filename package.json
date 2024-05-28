@@ -17,6 +17,7 @@
     "mysql2": "^3.9.7",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "pg": "^8.11.5",
     "socket.io": "^4.7.5",
     "supertest-session": "^5.0.1"
@@ -36,9 +37,7 @@
     "dev": "nodemon server.js",
     "server-test": "start-server-and-test dev http://localhost:3000 coverage"
   },
-  
-    "engines": {
-      "npm": "10.8.0"
-    }
-  
+  "engines": {
+    "npm": "10.8.0"
+  }
 }
