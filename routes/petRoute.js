@@ -41,10 +41,7 @@ router.get('/petProfile/:id', ensureAuthenticated, databaseController.getPetbyID
     });
 });
 
-router.post('/petCreate', ensureAuthenticated, databaseController.createPet);
-router.get('/petCreate', ensureAuthenticated, (req, res) => {
-  res.render('pets/pet_create');
-});
+
 router.post('/petProfile/:id', ensureAuthenticated, databaseController.editPet);
 
 // router.post('/petProfile/:id/petEdit', ensureAuthenticated, databaseController.getPetbyID);
