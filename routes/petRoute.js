@@ -35,7 +35,7 @@ router.get('/petProfile/:id', ensureAuthenticated, databaseController.getPetbyID
       previousWeightDate: req.prevWeight.Date,
       petInfo: req.petInfo,
       reminders: req.reminders,
-      messages: req.messages,
+      messages: req.messages || [],
 
       prescriptions: req.prescriptions,
     });
