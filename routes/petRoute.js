@@ -56,7 +56,7 @@ router.post('/createPrescription', ensureAuthenticated, databaseController.creat
 router.post('/petProfile/:id', ensureAuthenticated, databaseController.editPet)
 // router.post('/petProfile/:id/petEdit', ensureAuthenticated, databaseController.getPetbyID);
 router.get('/petCreate', ensureAuthenticated, (req, res) => {
-  res.render('create_pet');
+  res.render('pets/create_pet');
 });
 router.post('/petCreate', ensureAuthenticated, databaseController.createPet);
 // editing pets
